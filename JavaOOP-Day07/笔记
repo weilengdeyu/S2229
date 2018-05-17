@@ -1,0 +1,187 @@
+集合框架
+1.存储基本类型，在Java中要是用包装类型
+ArrayList<Integer> list=new ArrayList<Integer>();
+2.非泛型集合，可以添加任意类型
+
+ArrayList list=new ArrayList();
+		list.add(1);//装箱  程序性能降低  
+		list.add("面试");
+		
+1.泛型不用装箱
+2.泛型可以保证类型安全
+----------------------------------------------------------
+如果这种    个性    是     个别   的话，我宁可不要
+
+2.集合扩容的原理
+以数组实现。节约空间，但数组有容量限制。超出限制时会增加50%容量，
+用System.arraycopy（）复制到新的数组。因此最好能给出数组大小的预估值。
+默认第一次插入元素时创建大小为10的数组。
+ /**
+     * Default initial（初始化） capacity（容量）.
+     */
+    private static final int DEFAULT_CAPACITY = 10;
+    
+ /**
+     * Constructs an empty list with an initial capacity of ten.
+     */
+    public ArrayList() {
+        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+    }
+ 
+ 定义一个集合，默认会初始化10个位置，但是元素个数为0  ，JDK1.6  和JDK 8  
+ 
+扩容的过程
+1.add方法是时机
+ public boolean add(E e) {
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+        elementData[size++] = e;
+        return true;
+    }
+------第一行code
+ private void ensureCapacityInternal(int minCapacity) {
+        if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+            minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
+        }
+
+        ensureExplicitCapacity(minCapacity);
+    }
+    
+ -----goon
+ 
+   private void ensureExplicitCapacity(int minCapacity) {
+        modCount++;
+
+        // overflow-conscious code
+        if (minCapacity - elementData.length > 0)
+            grow(minCapacity);
+    }
+ last goes to grow
+ 
+  private void grow(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = elementData.length;
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        if (newCapacity - minCapacity < 0)
+            newCapacity = minCapacity;
+        if (newCapacity - MAX_ARRAY_SIZE > 0)
+            newCapacity = hugeCapacity(minCapacity);
+        // minCapacity is usually close to size, so this is a win:
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+    
+3。作业
+  1.上午讲解内容代码+博客
+  2.Java Queue（队列接口的使用，常用方法的使用）了解Queue的继承和实现架构  ☆☆☆☆☆
+  3.实用类
+  4.链接：https://pan.baidu.com/s/1-iIFVB9aezlgtoKVvSbG7w 密码：wwwp
+  5.多线程
+  
+  2018年3月13日09:08:29
+  
+    1.线程的礼让 
+    yield();  让当前线程让出CPU资源，不再参与资源抢占.但是不一定能礼让成功，结果完全取决于CPU现在调度（资源占用情况）
+    
+    
+    2.线程同步
+      案例：做一个打印机 ：功能不停的打印  微冷的雨 好人
+      
+      public class Printer{
+      
+        public void print1(){
+          System.out.print("微");
+          System.out.print("冷");
+          System.out.print("的");
+          System.out.print("雨");
+          System.out.println("");
+   
+        }
+        
+         public void print2(){
+          System.out.print("好");
+          System.out.print("人");
+          System.out.println("");
+   
+        }
+      } 
+      
+      线程A
+      ：
+      
+      
+      
+      线程B:
+      同步方法
+      线程同步是为了解决多线程情况下共享数据不一致问题
+      pubilc synchronized void fun1(){
+        
+      }
+      
+      
+      同步代码块
+      {
+      
+      }
+      static{
+      
+      }
+      synchronized(lock){
+                             是一个整体 ！！！！
+      }
+      synchronized(obj){
+			System.out.print("微");
+			System.out.print("冷");
+			System.out.print("的");
+			System.out.print("雨");
+			System.out.println();	 
+		}    
+		
+		
+		
+案例2：网络售票   
+
+
+    3、使用集合带来的线程问题
+    线程安全的类型
+    
+    ArrayList和Vector 集合有什么区别？  
+    http://www.cnblogs.com/wanlipeng/archive/2010/10/21/1857791.html
+    
+    面试题：ArrayList 保证线程安全？？？？
+    1.ArrayList add()线程非安全的 
+     public boolean add(E e) {
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+        elementData[size++] = e;
+        return true;
+    }
+      
+     2.Vector add()线程安全的   性能下降
+     
+    public synchronized boolean add(E e) {
+        modCount++;
+        ensureCapacityHelper(elementCount + 1);
+        elementData[elementCount++] = e;
+        return true;
+    }
+ 
+ 
+    ---------------------------------------------------------
+    HashMap  VS   ConcurrentHashMap
+    
+    HashMap  VS   HashTable
+    
+    
+    2.面试题---------
+     1.ArrayList和Vector 集合有什么区别？  
+   	   http://www.cnblogs.com/wanlipeng/archive/2010/10/21/1857791.html
+     2.不使用Vector，让ArrayList线程安全
+     
+    
+    
+    
+ 
+ 
+ 
+    
+    
+  
+  
