@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>JSP-Day04-0100</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <!-- 所有Servlet共享的内容  -->
+  <context-param>
+    <param-name>key2</param-name>
+    <param-value>happy2</param-value>
+  </context-param>
+  
+ <!-- 配置一个Servlet节点，指向用户 自定义的Servlet类，类需要全路径  包名+类名 -->
+  <servlet>
+  	<servlet-name>firstServlet</servlet-name>
+  	<servlet-class>cn.happy.servlet.FirstServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+   <servlet>
+  	<servlet-name>secondServlet</servlet-name>
+  	<servlet-class>cn.happy.servlet.SecondServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>paramServlet</servlet-name>
+    <servlet-class>cn.happy.param.FirstServlet</servlet-class>
+    <!--初始化参数  -->
+	<init-param>
+	  <param-name>key</param-name>
+	  <param-value>happy</param-value>
+	</init-param>
+  </servlet>
+  
+  
+  <servlet>
+    <servlet-name>ContextServlet</servlet-name>
+    <servlet-class>cn.happy.param.SecondServlet</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>ContextServlet</servlet-name>
+    <url-pattern>/ContextServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+    <servlet-name>paramServlet</servlet-name>
+    <url-pattern>/paramServlet</url-pattern>
+  </servlet-mapping>
+  
+ <!--  配置一个Servlet-mapping节点 ，对访问者公开一个访问地址 -->
+  <servlet-mapping>
+     <servlet-name>firstServlet</servlet-name>
+     <url-pattern>/firstServlet</url-pattern>
+  </servlet-mapping> 
+  
+   <servlet-mapping>
+     <servlet-name>secondServlet</servlet-name>
+     <url-pattern>/XXX</url-pattern>
+     <url-pattern>/YYY</url-pattern>
+     <url-pattern>/ZZZ</url-pattern>
+  </servlet-mapping> 
+</web-app>

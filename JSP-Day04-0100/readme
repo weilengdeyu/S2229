@@ -1,0 +1,49 @@
+1.了解Servlet API的常用接口和类 
+2、掌握Servlet的部署和配置
+3.会使用Servlet处理用户请求  1个小时
+4.综合应用小试牛刀 1个小时 
+
+1.Servlet是一个实现了一个特定接口或者是父类的java类
+  Servlet是一个Java程序，运行在Server端，处理客户端请求并作出响应。
+
+2.jsp和servlet本质上是一个东东
+  jsp和Servlet  都是单例的.
+
+3.三种Servlet实现方式
+
+  方式一：实现一个Servlet接口
+   A implements Servlet{
+   
+   
+   }
+结论：Init方法走一次 
+
+          时机：
+          Tomcat启动的时候，所有的Servlet都驻留到内存 在web.xml中，servlet节点中 <load-on-startup>1</>
+           
+   
+    destory走一次   时机：服务器关闭的时候
+    service 请求一次，调度一次
+    
+方案二：GenericServlet抽象类
+GenericServlet抽象类  Servlet接口
+public abstract class GenericServlet 
+    implements Servlet
+
+  参数(ServletRequest, ServletResponse)  父接口 
+
+方式三：HttpServlet extends GenericServet
+
+ doGet(HttpServletRequest，HttpServletResponse)  子接口 
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
